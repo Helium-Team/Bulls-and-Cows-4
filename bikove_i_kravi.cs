@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-// Just Test
+// Just Test Edited from Github
 namespace BullsAndCowsGame
 {
     class bikove_i_kravi
