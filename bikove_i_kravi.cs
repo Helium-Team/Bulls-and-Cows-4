@@ -24,11 +24,11 @@ namespace BullsAndCowsGame
         private string helpPattern;
         private StringBuilder helpNumber;
         private string generatedNumber;
-        private klasirane<Player> Klasirane;
+        private Score<Player> Klasirane;
 
         public bikove_i_kravi()
         {
-            Klasirane = new klasirane<Player>();
+            Klasirane = new Score<Player>();
         }
         private void generateNumber()
         {
