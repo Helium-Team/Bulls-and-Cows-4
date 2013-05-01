@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Linq;
 using System.Text;
-// Just Test Edited from VS
+
 namespace BullsAndCowsGame
 {
-    class bikove_i_kravi
+    class BullsAndCows
     {
         private enum PlayerCommand
         {
@@ -16,9 +16,9 @@ namespace BullsAndCowsGame
         }
 
         private const string WELCOME_MESSAGE = "Welcome to “Bulls and Cows” game. " +
-            "Please try to guess my secret 4-digit number." +
-            "Use 'top' to view the top scoreboard, 'restart' " +
-            "to start a new game and 'help' to cheat and 'exit' to quit the game.";
+                                               "Please try to guess my secret 4-digit number." +
+                                               "Use 'top' to view the top scoreboard, 'restart' " +
+                                               "to start a new game and 'help' to cheat and 'exit' to quit the game.";
         private const string WRONG_COMMAND_MESSAGE = "Incorrect guess or command!";
         private const int NUMBER_LENGHT = 4;
         private string helpPattern;
@@ -26,10 +26,11 @@ namespace BullsAndCowsGame
         private string generatedNumber;
         private Score<Player> Klasirane;
 
-        public bikove_i_kravi()
+        public BullsAndCows()
         {
             Klasirane = new Score<Player>();
         }
+
         private void generateNumber()
         {
             StringBuilder num = new StringBuilder(4);
@@ -39,14 +40,12 @@ namespace BullsAndCowsGame
             {
                 int randomDigit = randomNumberGenerator.Next(9);
 
-
-
-
                 num.Append(randomDigit);
             }
 
             generatedNumber = num.ToString();
         }
+
         private PlayerCommand PlayerInputToPlayerCommand(string playerInput)
         {
             if (playerInput.ToLower() == "top")
@@ -74,10 +73,6 @@ namespace BullsAndCowsGame
         private void PrintWelcomeMessage()
         {
             Console.WriteLine(WELCOME_MESSAGE);
-
-
-
-
         }
 
         private void PrintWrongCommandMessage()
@@ -90,10 +85,6 @@ namespace BullsAndCowsGame
             Console.Write("Congratulations! You guessed the secret number in {0} attempts", attempts);
             if (cheats == 0)
             {
-
-
-
-
                 Console.WriteLine(".");
             }
             else
@@ -110,9 +101,6 @@ namespace BullsAndCowsGame
                 PrintWelcomeMessage();
                 generateNumber();
                 int attempts = 0;
-
-
-
 
                 int cheats = 0;
                 helpNumber = new StringBuilder("XXXX");
@@ -144,10 +132,6 @@ namespace BullsAndCowsGame
                                 PrintCongratulateMessage(attempts, cheats);
                                 FinishGame(attempts, cheats);
                                 break;
-
-
-
-
                             }
                             else
                             {
@@ -161,9 +145,6 @@ namespace BullsAndCowsGame
                                 PrintWrongCommandMessage();
                             }
                         }
-
-
-
                     }
                 }
                 while (enteredCommand != PlayerCommand.Exit && enteredCommand != PlayerCommand.Restart);
@@ -172,6 +153,7 @@ namespace BullsAndCowsGame
             while (enteredCommand != PlayerCommand.Exit);
             Console.WriteLine("Good bye!");
         }
+
         private int PokajiHelp(int cheats)
         {
             if (cheats < 4)
@@ -186,6 +168,7 @@ namespace BullsAndCowsGame
             }
             return cheats;
         }
+
         private void RevealDigit(int cheats)
         {
             if (helpPattern == null)
@@ -198,14 +181,16 @@ namespace BullsAndCowsGame
 
         private void generateHelpPattern()
         {
-            string[] helpPaterns = {"1234", "1243", "1324", "1342", "1432", "1423",
+            string[] helpPaterns =
+            {
+                "1234", "1243", "1324", "1342", "1432", "1423",
                 "2134", "2143", "2314", "2341", "2431", "2413",
                 "3214", "3241", "3124", "3142", "3412", "3421",
-                "4231", "4213", "4321", "4312", "4132", "4123",};
-
+                "4231", "4213", "4321", "4312", "4132", "4123",
+            };
 
             Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
-            int randomPaternNumber = randomNumberGenerator.Next(helpPaterns.Length-1);
+            int randomPaternNumber = randomNumberGenerator.Next(helpPaterns.Length - 1);
             helpPattern = helpPaterns[randomPaternNumber];
         }
 
@@ -293,14 +278,14 @@ namespace BullsAndCowsGame
                 int i = 1;
                 foreach (Player p in Klasirane)
                 {
-                    Console.WriteLine("{0}. {1} --> {2} guess" + ((p.Attempts == 1)?"":"es"), i++, p.Name, p.Attempts);
+                    Console.WriteLine("{0}. {1} --> {2} guess" + ((p.Attempts == 1) ? "" : "es"), i++, p.Name, p.Attempts);
                 }
             }
         }
 
         static void Main(string[] args)
         {
-            bikove_i_kravi game = new bikove_i_kravi();
+            BullsAndCows game = new BullsAndCows();
             game.Start();
         }
     }

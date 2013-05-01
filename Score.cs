@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BullsAndCowsGame
 {
-//tova raboti - testvano e, NE PIPAJJJJ!!!!!!!!
+    
     class Score<T> : IEnumerable<T>, IEnumerator<T> where T : IComparable<T>
     {
         private int maxCountOfStoredData;
@@ -13,12 +12,18 @@ namespace BullsAndCowsGame
         private int position = -1;
 
         private int count;
+
         public int Count
         {
-            get { return this.count; }
+            get
+            {
+                return this.count;
+            }
         }
 
-        public Score() : this(5) { }
+        public Score() : this(5)
+        {
+        }
 
         public Score(int aMaxCountOfStoredData)
         {
@@ -62,7 +67,10 @@ namespace BullsAndCowsGame
 
         public T Current
         {
-            get { return data[position]; }
+            get
+            {
+                return data[position];
+            }
         }
 
         public void Dispose()
@@ -72,12 +80,15 @@ namespace BullsAndCowsGame
 
         object System.Collections.IEnumerator.Current
         {
-            get { return data[position]; }
+            get
+            {
+                return data[position];
+            }
         }
 
         public bool MoveNext()
         {
-            if(position < Count - 1)
+            if (position < Count - 1)
             {
                 position++;
                 return true;
@@ -90,5 +101,5 @@ namespace BullsAndCowsGame
         {
             position = -1;
         }
-    }      
+    }
 }

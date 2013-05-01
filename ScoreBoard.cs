@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BullsAndCowsGame
 {
@@ -12,10 +11,15 @@ namespace BullsAndCowsGame
 
         public Dictionary<string, uint> Players
         {
-            get { return this.players; }
-            set { this.players = value; }
+            get
+            {
+                return this.players;
+            }
+            set
+            {
+                this.players = value;
+            }
         }
-
 
         public void AddPlayerToScoreboard(string playerName, uint attempts)
         {
