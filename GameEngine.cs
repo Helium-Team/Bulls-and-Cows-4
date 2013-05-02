@@ -7,7 +7,6 @@ namespace BullsAndCowsGame
     public class GameEngine
     {
         private string generatedNumber;
-        
         private const int NUMBER_LENGHT = 4;
 
         public GameEngine()
@@ -22,14 +21,13 @@ namespace BullsAndCowsGame
                 ConsolePrinter.PrintWelcomeMessage();
                 generatedNumber = NumberGenerator.GenerateNumber(NUMBER_LENGHT);
                 int attempts = 0;
-
                 int cheats = 0;
-
+                
                 do
                 {
                     Console.Write("Enter your guess or command: ");
                     string playerInput = Console.ReadLine();
-                    enteredCommand = PlayerInputToPlayerCommand(playerInput);
+                    enteredCommand = CommandReader.ReadPlayerInput(playerInput);
 
                     if (enteredCommand == PlayerCommand.Top)
                     {
@@ -139,29 +137,6 @@ namespace BullsAndCowsGame
                 Console.WriteLine("You are not allowed to enter the top scoreboard.");
             }
         }
-
-        private PlayerCommand PlayerInputToPlayerCommand(string playerInput)
-        {
-            if (playerInput.ToLower() == "top")
-            {
-                return PlayerCommand.Top;
-            }
-            else if (playerInput.ToLower() == "restart")
-            {
-                return PlayerCommand.Restart;
-            }
-            else if (playerInput.ToLower() == "help")
-            {
-                return PlayerCommand.Help;
-            }
-            else if (playerInput.ToLower() == "exit")
-            {
-                return PlayerCommand.Exit;
-            }
-            else
-            {
-                return PlayerCommand.Other;
-            }
-        }
+        
     }
 }
