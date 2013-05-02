@@ -42,9 +42,8 @@ namespace BullsAndCowsGame
                         if (IsValidInput(playerInput))
                         {
                             attempts++;
-                            int bullsCount;
-                            int cowsCount;
-                            CalculateBullsAndCowsCount(playerInput, generatedNumber, out bullsCount, out cowsCount);
+                            int bullsCount = CallculateBullsCount(playerInput, generatedNumber);
+                            int cowsCount = CalculateCowsCount(playerInput, generatedNumber);
                             if (bullsCount == NUMBER_LENGHT)
                             {
                                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
@@ -72,23 +71,11 @@ namespace BullsAndCowsGame
             Console.WriteLine("Good bye!");
         }
 
-        private void CalculateBullsAndCowsCount(string playerInput, string generatedNumber, out int bullsCount, out int cowsCount)
+        private int CallculateBullsCount(string playerInput, string generatedNumber)
         {
-            bullsCount = 0;
-            cowsCount = 0;
             StringBuilder playerNumber = new StringBuilder(playerInput);
             StringBuilder number = new StringBuilder(generatedNumber);
-            for (int i = 0; i < playerNumber.Length; i++)
-            {
-                if (playerNumber[i] == number[i])
-                {
-                    bullsCount++;
-                    playerNumber.Remove(i, 1);
-                    number.Remove(i, 1);
-                    i--;
-                }
-            }
-
+            int cowsCount = 0;
             for (int i = 0; i < playerNumber.Length; i++)
             {
                 for (int j = 0; j < number.Length; j++)
@@ -104,6 +91,27 @@ namespace BullsAndCowsGame
                     }
                 }
             }
+            return cowsCount;
+        }
+
+        private int CalculateCowsCount(string playerInput, string generatedNumber)
+        {
+            int bullsCount = 0;
+           
+            StringBuilder playerNumber = new StringBuilder(playerInput);
+            StringBuilder number = new StringBuilder(generatedNumber);
+            for (int i = 0; i < playerNumber.Length; i++)
+            {
+                if (playerNumber[i] == number[i])
+                {
+                    bullsCount++;
+                    playerNumber.Remove(i, 1);
+                    number.Remove(i, 1);
+                    i--;
+                }
+            }
+
+            return bullsCount;
         }
 
         private bool IsValidInput(string playerInput)
@@ -137,6 +145,5 @@ namespace BullsAndCowsGame
                 Console.WriteLine("You are not allowed to enter the top scoreboard.");
             }
         }
-        
     }
 }
