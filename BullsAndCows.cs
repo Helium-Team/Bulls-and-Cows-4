@@ -6,37 +6,20 @@ namespace BullsAndCowsGame
 {
     class BullsAndCows
     {
-        
-
         private const string WELCOME_MESSAGE = "Welcome to “Bulls and Cows” game. " +
                                                "Please try to guess my secret 4-digit number." +
                                                "Use 'top' to view the top scoreboard, 'restart' " +
                                                "to start a new game and 'help' to cheat and 'exit' to quit the game.";
         private const string WRONG_COMMAND_MESSAGE = "Incorrect guess or command!";
-        private const int NUMBER_LENGHT = 4;
         private string helpPattern;
         private StringBuilder helpNumber;
         private string generatedNumber;
         private Score<Player> Klasirane;
+        private const int NUMBER_LENGHT = 4;
 
         public BullsAndCows()
         {
             Klasirane = new Score<Player>();
-        }
-
-        private void generateNumber()
-        {
-            StringBuilder num = new StringBuilder(4);
-            Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
-
-            for (int i = 0; i < NUMBER_LENGHT; i++)
-            {
-                int randomDigit = randomNumberGenerator.Next(9);
-
-                num.Append(randomDigit);
-            }
-
-            generatedNumber = num.ToString();
         }
 
         private PlayerCommand PlayerInputToPlayerCommand(string playerInput)
@@ -92,7 +75,7 @@ namespace BullsAndCowsGame
             do
             {
                 PrintWelcomeMessage();
-                generateNumber();
+                generatedNumber = NumberGenerator.GenerateNumber(NUMBER_LENGHT);
                 int attempts = 0;
 
                 int cheats = 0;
