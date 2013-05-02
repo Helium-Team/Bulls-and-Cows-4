@@ -7,7 +7,7 @@ namespace BullsAndCowsGame
     public static class PlayerHelper
     {
         private static string helpPattern = null;
-        private static readonly StringBuilder helpNumber = new StringBuilder("XXXX");
+        private static StringBuilder helpNumber = new StringBuilder("XXXX");
 
         public static int PrintHelp(int cheats, string generatedNumber)
         {
@@ -47,6 +47,11 @@ namespace BullsAndCowsGame
             Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
             int randomPaternNumber = randomNumberGenerator.Next(helpPaterns.Length - 1);
             helpPattern = helpPaterns[randomPaternNumber];
+        }
+
+        public static void Clear()
+        {
+            helpNumber = new StringBuilder("XXXX");
         }
     }
 }

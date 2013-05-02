@@ -36,6 +36,11 @@ namespace BullsAndCowsGame
                     {
                         cheats = PlayerHelper.PrintHelp(cheats, generatedNumber);
                     }
+                    else if (enteredCommand == PlayerCommand.Restart)
+                    {
+                        PlayerHelper.Clear();
+                        Console.WriteLine();
+                    }
                     else
                     {
                         if (IsValidInput(playerInput))
@@ -47,6 +52,7 @@ namespace BullsAndCowsGame
                             {
                                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
                                 FinishGame(attempts, cheats);
+                                PlayerHelper.Clear();
                                 break;
                             }
                             else
@@ -64,10 +70,9 @@ namespace BullsAndCowsGame
                     }
                 }
                 while (enteredCommand != PlayerCommand.Exit && enteredCommand != PlayerCommand.Restart);
-                Console.WriteLine();
             }
             while (enteredCommand != PlayerCommand.Exit);
-            Console.WriteLine("Good bye!");
+            Console.WriteLine("\nGood bye!");
         }
 
         private int CallculateBullsCount(string playerInput, string generatedNumber)

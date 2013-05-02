@@ -23,7 +23,7 @@ namespace BullsAndCowsGame
 
         public static void PrintCongratulateMessage(int attempts, int cheats)
         {
-            Console.Write("Congratulations! You guessed the secret number in {0} attempts", attempts);
+            Console.Write("\nCongratulations! You guessed the secret number in {0} attempts", attempts);
             if (cheats == 0)
             {
                 Console.WriteLine(".");
