@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Linq;
 
-
 namespace BullsAndCowsGame
 {
     public static class CommandReader
     {
-        public static  PlayerCommand ReadPlayerInput(string playerInput)
+        public static PlayerCommand ReadPlayerInput(string playerInput)
         {
             if (playerInput.ToLower() == "top")
             {
@@ -29,5 +28,6 @@ namespace BullsAndCowsGame
                 return PlayerCommand.Other;
             }
         }
+        
     }
 }

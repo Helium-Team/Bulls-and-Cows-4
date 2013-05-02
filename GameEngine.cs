@@ -8,10 +8,13 @@ namespace BullsAndCowsGame
     {
         private string generatedNumber;
         private PlayerHelper playerHelper = new PlayerHelper();
+        private readonly NumberGenerator numberGenerator = new NumberGenerator();
 
         public GameEngine()
         {
         }
+
+        
 
         public void Start()
         {
@@ -19,7 +22,7 @@ namespace BullsAndCowsGame
             do
             {
                 ConsolePrinter.PrintWelcomeMessage();
-                generatedNumber = NumberGenerator.GenerateNumber();
+                generatedNumber = numberGenerator.GenerateNumber();
                 int attempts = 0;
                 int cheats = 0;
                 
