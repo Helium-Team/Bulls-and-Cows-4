@@ -6,11 +6,7 @@ namespace BullsAndCowsGame
 {
     class BullsAndCows
     {
-        private const string WELCOME_MESSAGE = "Welcome to “Bulls and Cows” game. " +
-                                               "Please try to guess my secret 4-digit number." +
-                                               "Use 'top' to view the top scoreboard, 'restart' " +
-                                               "to start a new game and 'help' to cheat and 'exit' to quit the game.";
-        private const string WRONG_COMMAND_MESSAGE = "Incorrect guess or command!";
+       
        
         private string generatedNumber;
         private Score<Player> Klasirane;
@@ -45,35 +41,14 @@ namespace BullsAndCowsGame
             }
         }
 
-        private void PrintWelcomeMessage()
-        {
-            Console.WriteLine(WELCOME_MESSAGE);
-        }
-
-        private void PrintWrongCommandMessage()
-        {
-            Console.WriteLine(WRONG_COMMAND_MESSAGE);
-        }
-
-        private void PrintCongratulateMessage(int attempts, int cheats)
-        {
-            Console.Write("Congratulations! You guessed the secret number in {0} attempts", attempts);
-            if (cheats == 0)
-            {
-                Console.WriteLine(".");
-            }
-            else
-            {
-                Console.WriteLine(" and {0} cheats.", cheats);
-            }
-        }
+     
 
         public void Start()
         {
             PlayerCommand enteredCommand;
             do
             {
-                PrintWelcomeMessage();
+                ConsolePrinter.PrintWelcomeMessage();
                 generatedNumber = NumberGenerator.GenerateNumber(NUMBER_LENGHT);
                 int attempts = 0;
 
@@ -103,7 +78,7 @@ namespace BullsAndCowsGame
                             CalculateBullsAndCowsCount(playerInput, generatedNumber, out bullsCount, out cowsCount);
                             if (bullsCount == NUMBER_LENGHT)
                             {
-                                PrintCongratulateMessage(attempts, cheats);
+                                ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
                                 FinishGame(attempts, cheats);
                                 break;
                             }
@@ -116,7 +91,7 @@ namespace BullsAndCowsGame
                         {
                             if (enteredCommand != PlayerCommand.Restart && enteredCommand != PlayerCommand.Exit)
                             {
-                                PrintWrongCommandMessage();
+                                ConsolePrinter.PrintWrongCommandMessage();
                             }
                         }
                     }

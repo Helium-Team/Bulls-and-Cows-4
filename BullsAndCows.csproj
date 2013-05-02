@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BullsAndCows.cs" />
+    <Compile Include="ConsolePrinter.cs" />
     <Compile Include="NumberGenerator.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="PlayerCommand.cs" />
