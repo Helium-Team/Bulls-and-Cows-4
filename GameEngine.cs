@@ -43,7 +43,7 @@ namespace BullsAndCowsGame
                         {
                             attempts++;
                             int bullsCount = CallculateBullsCount(playerInput, generatedNumber);
-                            int cowsCount = CalculateCowsCount(playerInput, generatedNumber);
+                            int cowsCount = CallculateCowsCount(playerInput, generatedNumber);
                             if (bullsCount == NUMBER_LENGHT)
                             {
                                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
@@ -94,7 +94,7 @@ namespace BullsAndCowsGame
             return cowsCount;
         }
 
-        private int CalculateCowsCount(string playerInput, string generatedNumber)
+        private int CallculateCowsCount(string playerInput, string generatedNumber)
         {
             int bullsCount = 0;
            
