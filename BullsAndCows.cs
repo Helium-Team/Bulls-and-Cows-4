@@ -6,14 +6,7 @@ namespace BullsAndCowsGame
 {
     class BullsAndCows
     {
-        private enum PlayerCommand
-        {
-            Top,
-            Restart,
-            Help,
-            Exit,
-            Other
-        }
+        
 
         private const string WELCOME_MESSAGE = "Welcome to “Bulls and Cows” game. " +
                                                "Please try to guess my secret 4-digit number." +
