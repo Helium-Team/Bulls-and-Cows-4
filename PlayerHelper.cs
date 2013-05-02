@@ -4,18 +4,22 @@ using System.Text;
 
 namespace BullsAndCowsGame
 {
-    public static class PlayerHelper
+    public class PlayerHelper
     {
-        private static string helpPattern = null;
-        private static StringBuilder helpNumber = new StringBuilder("XXXX");
+        private string helpPattern = null;
+        private StringBuilder helpNumber = new StringBuilder("XXXX");
 
-        public static int PrintHelp(int cheats, string generatedNumber)
+        public PlayerHelper()
+        {
+        }
+
+        public int PrintHelp(int cheats, string generatedNumber)
         {
             if (cheats < 4)
             {
                 RevealDigit(cheats, generatedNumber);
                 cheats++;
-                Console.WriteLine("The number looks like {0}.", helpNumber);
+                Console.WriteLine("The number looks like {0}.", this.helpNumber);
             }
             else
             {
@@ -24,9 +28,9 @@ namespace BullsAndCowsGame
             return cheats;
         }
 
-        private static void RevealDigit(int cheats, string generatedNumber)
+        private void RevealDigit(int cheats, string generatedNumber)
         {
-            if (helpPattern == null)
+            if (this.helpPattern == null)
             {
                 GenerateHelpPattern();
             }
@@ -34,7 +38,7 @@ namespace BullsAndCowsGame
             helpNumber[digitToReveal - 1] = generatedNumber[digitToReveal - 1];
         }
 
-        private static void GenerateHelpPattern()
+        private void GenerateHelpPattern()
         {
             string[] helpPaterns =
             {
@@ -46,12 +50,7 @@ namespace BullsAndCowsGame
 
             Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
             int randomPaternNumber = randomNumberGenerator.Next(helpPaterns.Length - 1);
-            helpPattern = helpPaterns[randomPaternNumber];
-        }
-
-        public static void Clear()
-        {
-            helpNumber = new StringBuilder("XXXX");
+            this.helpPattern = helpPaterns[randomPaternNumber];
         }
     }
 }

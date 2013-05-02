@@ -7,6 +7,7 @@ namespace BullsAndCowsGame
     public class GameEngine
     {
         private string generatedNumber;
+        private PlayerHelper playerHelper = new PlayerHelper();
 
         public GameEngine()
         {
@@ -34,11 +35,11 @@ namespace BullsAndCowsGame
                     }
                     else if (enteredCommand == PlayerCommand.Help)
                     {
-                        cheats = PlayerHelper.PrintHelp(cheats, generatedNumber);
+                        cheats = playerHelper.PrintHelp(cheats, generatedNumber);
                     }
                     else if (enteredCommand == PlayerCommand.Restart)
                     {
-                        PlayerHelper.Clear();
+                        playerHelper = new PlayerHelper();
                         Console.WriteLine();
                     }
                     else
@@ -52,7 +53,7 @@ namespace BullsAndCowsGame
                             {
                                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
                                 FinishGame(attempts, cheats);
-                                PlayerHelper.Clear();
+                                playerHelper = new PlayerHelper();
                                 break;
                             }
                             else
