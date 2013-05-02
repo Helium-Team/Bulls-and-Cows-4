@@ -11,8 +11,7 @@ namespace BullsAndCowsGame
                                                "Use 'top' to view the top scoreboard, 'restart' " +
                                                "to start a new game and 'help' to cheat and 'exit' to quit the game.";
         private const string WRONG_COMMAND_MESSAGE = "Incorrect guess or command!";
-        private string helpPattern;
-        private StringBuilder helpNumber;
+       
         private string generatedNumber;
         private Score<Player> Klasirane;
         private const int NUMBER_LENGHT = 4;
@@ -79,8 +78,7 @@ namespace BullsAndCowsGame
                 int attempts = 0;
 
                 int cheats = 0;
-                helpNumber = new StringBuilder("XXXX");
-                helpPattern = null;
+                               
                 do
                 {
                     Console.Write("Enter your guess or command: ");
@@ -93,7 +91,7 @@ namespace BullsAndCowsGame
                     }
                     else if (enteredCommand == PlayerCommand.Help)
                     {
-                        cheats = PokajiHelp(cheats);
+                        cheats = PlayerHelper.PrintHelp(cheats, generatedNumber);
                     }
                     else
                     {
@@ -128,46 +126,6 @@ namespace BullsAndCowsGame
             }
             while (enteredCommand != PlayerCommand.Exit);
             Console.WriteLine("Good bye!");
-        }
-
-        private int PokajiHelp(int cheats)
-        {
-            if (cheats < 4)
-            {
-                RevealDigit(cheats);
-                cheats++;
-                Console.WriteLine("The number looks like {0}.", helpNumber);
-            }
-            else
-            {
-                Console.WriteLine("You are not allowed to ask for more help!");
-            }
-            return cheats;
-        }
-
-        private void RevealDigit(int cheats)
-        {
-            if (helpPattern == null)
-            {
-                generateHelpPattern();
-            }
-            int digitToReveal = helpPattern[cheats] - '0';
-            helpNumber[digitToReveal - 1] = generatedNumber[digitToReveal - 1];
-        }
-
-        private void generateHelpPattern()
-        {
-            string[] helpPaterns =
-            {
-                "1234", "1243", "1324", "1342", "1432", "1423",
-                "2134", "2143", "2314", "2341", "2431", "2413",
-                "3214", "3241", "3124", "3142", "3412", "3421",
-                "4231", "4213", "4321", "4312", "4132", "4123",
-            };
-
-            Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
-            int randomPaternNumber = randomNumberGenerator.Next(helpPaterns.Length - 1);
-            helpPattern = helpPaterns[randomPaternNumber];
         }
 
         private void CalculateBullsAndCowsCount(string playerInput, string generatedNumber, out int bullsCount, out int cowsCount)
