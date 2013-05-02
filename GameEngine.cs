@@ -7,7 +7,6 @@ namespace BullsAndCowsGame
     public class GameEngine
     {
         private string generatedNumber;
-        private const int NUMBER_LENGHT = 4;
 
         public GameEngine()
         {
@@ -19,7 +18,7 @@ namespace BullsAndCowsGame
             do
             {
                 ConsolePrinter.PrintWelcomeMessage();
-                generatedNumber = NumberGenerator.GenerateNumber(NUMBER_LENGHT);
+                generatedNumber = NumberGenerator.GenerateNumber();
                 int attempts = 0;
                 int cheats = 0;
                 
@@ -44,7 +43,7 @@ namespace BullsAndCowsGame
                             attempts++;
                             int bullsCount = CallculateBullsCount(playerInput, generatedNumber);
                             int cowsCount = CallculateCowsCount(playerInput, generatedNumber);
-                            if (bullsCount == NUMBER_LENGHT)
+                            if (bullsCount == generatedNumber.Length)
                             {
                                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
                                 FinishGame(attempts, cheats);
@@ -116,7 +115,7 @@ namespace BullsAndCowsGame
 
         private bool IsValidInput(string playerInput)
         {
-            if (playerInput == String.Empty || playerInput.Length != NUMBER_LENGHT)
+            if (playerInput == String.Empty || playerInput.Length != generatedNumber.Length)
             {
                 return false;
             }

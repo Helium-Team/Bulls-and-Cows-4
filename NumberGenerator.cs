@@ -6,12 +6,14 @@ namespace BullsAndCowsGame
 {
     public static class NumberGenerator
     {
-        public static string GenerateNumber(int numberLenght)
+        private const int NUMBER_LENGHT = 4;
+
+        public static string GenerateNumber()
         {
             StringBuilder num = new StringBuilder(4);
             Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
 
-            for (int i = 0; i < numberLenght; i++)
+            for (int i = 0; i < NUMBER_LENGHT; i++)
             {
                 int randomDigit = randomNumberGenerator.Next(9);
                 num.Append(randomDigit);
