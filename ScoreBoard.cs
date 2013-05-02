@@ -1,52 +1,31 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace BullsAndCowsGame
 {
-    public class ScoreBoard
+    public static class ScoreBoard
     {
-        // Instead private Score<Player> Klasirane; ??
-        private Dictionary<string, uint> players = new Dictionary<string, uint>();
+        private static readonly Score<Player> rankList = new Score<Player>();
 
-        public Dictionary<string, uint> Players
+        public static void AddPlayer(string playerName, int attempts)
         {
-            get
-            {
-                return this.players;
-            }
-            set
-            {
-                this.players = value;
-            }
+            Player player = new Player(playerName, attempts);
+            rankList.Add(player);
         }
 
-        public void AddPlayerToScoreboard(string playerName, uint attempts)
+        public static void Print()
         {
-            if (this.Players.Keys.Contains(playerName))
-            {
-                this.Players[playerName] = attempts;
-            }
-            else
-            {
-                this.Players.Add(playerName, attempts);
-            }
-        }
-
-        public void PrintScoreboard()
-        {
-            if (this.Players.Count == 0)
+            if (rankList.Count == 0)
             {
                 Console.WriteLine("Top scoreboard is empty.");
             }
             else
             {
                 Console.WriteLine("Scoreboard:");
-                int number = 1;
-                foreach (var player in this.Players.OrderBy(i => i.Key))
+                int i = 1;
+                foreach (Player p in rankList)
                 {
-                    Console.WriteLine("{0}. {1} {2}", number, player.Key, player.Value);
-                    number++;
+                    Console.WriteLine("{0}. {1} --> {2} guess" + ((p.Attempts == 1) ? "" : "es"), i++, p.Name, p.Attempts);
                 }
             }
         }
