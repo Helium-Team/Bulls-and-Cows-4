@@ -6,33 +6,42 @@ namespace BullsAndCowsGame
 {
     public class GameEngine
     {
-        private PlayerHelper playerHelper;
-        private readonly NumberGenerator numberGenerator;
+<<<<<<< HEAD
+        private PlayerHelper playerHelper = new PlayerHelper();
+        private readonly NumberGenerator numberGenerator = new NumberGenerator();
         private string playerInput = null;
         private string generatedNumber;
         private bool isGameFinished = false;
         private int attempts = 0;
         private int cheats = 0;
+
+=======
+        private string generatedNumber;
+        private PlayerHelper playerHelper;
+        private readonly NumberGenerator numberGenerator;
         
+>>>>>>> 736e8d918bdacc23a498cf9b913bc79092336c11
         public GameEngine()
         {
             this.numberGenerator = new NumberGenerator();
             this.playerHelper = new PlayerHelper();
             this.generatedNumber = numberGenerator.GenerateNumber();
         }
-
         
-
         public void Start()
         {
             PlayerCommand enteredCommand;
             do
             {
                 ConsolePrinter.PrintWelcomeMessage();
-                //generatedNumber = numberGenerator.GenerateNumber();
+<<<<<<< HEAD
+                generatedNumber = numberGenerator.GenerateNumber();
                 this.isGameFinished = false;
+=======
+                //generatedNumber = numberGenerator.GenerateNumber();
                 int attempts = 0;
                 int cheats = 0;
+>>>>>>> 736e8d918bdacc23a498cf9b913bc79092336c11
                 
                 do
                 {
@@ -55,8 +64,12 @@ namespace BullsAndCowsGame
             {
                 case PlayerCommand.Top:
                     {
+<<<<<<< HEAD
                         ScoreBoard.Print();
                         break;
+=======
+                        ScoreBoard.Instance.Print();
+>>>>>>> 736e8d918bdacc23a498cf9b913bc79092336c11
                     }
                    
                 case PlayerCommand.Restart:
