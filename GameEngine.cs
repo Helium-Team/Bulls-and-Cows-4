@@ -6,16 +6,18 @@ namespace BullsAndCowsGame
 {
     public class GameEngine
     {
-        private string generatedNumber;
         private PlayerHelper playerHelper = new PlayerHelper();
         private readonly NumberGenerator numberGenerator = new NumberGenerator();
+        private string playerInput = null;
+        private string generatedNumber;
+        private bool isGameFinished = false;
+        private int attempts = 0;
+        private int cheats = 0;
 
         public GameEngine()
         {
         }
-
         
-
         public void Start()
         {
             PlayerCommand enteredCommand;
@@ -23,63 +25,83 @@ namespace BullsAndCowsGame
             {
                 ConsolePrinter.PrintWelcomeMessage();
                 generatedNumber = numberGenerator.GenerateNumber();
-                int attempts = 0;
-                int cheats = 0;
+                this.isGameFinished = false;
                 
                 do
                 {
                     Console.Write("Enter your guess or command: ");
-                    string playerInput = Console.ReadLine();
+                    playerInput = Console.ReadLine();
                     enteredCommand = CommandReader.ReadPlayerInput(playerInput);
-
-                    if (enteredCommand == PlayerCommand.Top)
-                    {
-                        ScoreBoard.Print();
-                    }
-                    else if (enteredCommand == PlayerCommand.Help)
-                    {
-                        cheats = playerHelper.PrintHelp(cheats, generatedNumber);
-                    }
-                    else if (enteredCommand == PlayerCommand.Restart)
-                    {
-                        playerHelper = new PlayerHelper();
-                        Console.WriteLine();
-                    }
-                    else
-                    {
-                        if (IsValidInput(playerInput))
-                        {
-                            attempts++;
-                            int bullsCount = CallculateBullsCount(playerInput, generatedNumber);
-                            int cowsCount = CallculateCowsCount(playerInput, generatedNumber);
-                            if (bullsCount == generatedNumber.Length)
-                            {
-                                ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
-                                FinishGame(attempts, cheats);
-                                playerHelper = new PlayerHelper();
-                                break;
-                            }
-                            else
-                            {
-                                Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullsCount, cowsCount);
-                            }
-                        }
-                        else
-                        {
-                            if (enteredCommand != PlayerCommand.Restart && enteredCommand != PlayerCommand.Exit)
-                            {
-                                ConsolePrinter.PrintWrongCommandMessage();
-                            }
-                        }
-                    }
+                    ExecuteCommand(enteredCommand);
                 }
-                while (enteredCommand != PlayerCommand.Exit && enteredCommand != PlayerCommand.Restart);
+                while (enteredCommand != PlayerCommand.Exit &&
+                       enteredCommand != PlayerCommand.Restart &&
+                       this.isGameFinished != true);
             }
             while (enteredCommand != PlayerCommand.Exit);
             Console.WriteLine("\nGood bye!");
         }
 
-        private int CallculateBullsCount(string playerInput, string generatedNumber)
+        private void ExecuteCommand(PlayerCommand command)
+        {
+            switch (command)
+            {
+                case PlayerCommand.Top:
+                    {
+                        ScoreBoard.Print();
+                        break;
+                    }
+                   
+                case PlayerCommand.Restart:
+                    {
+                        playerHelper = new PlayerHelper();
+                        Console.WriteLine();
+                        break;
+                    }
+                case PlayerCommand.Help:
+                    {
+                        this.cheats = playerHelper.PrintHelp(cheats, generatedNumber);
+                        break;
+                    }
+                case PlayerCommand.Exit:
+                    {
+                        break;
+                    }
+                case PlayerCommand.Other:
+                    
+                    if (IsValidInput())
+                    {
+                        this.attempts++;
+                        int bullsCount = CallculateBullsCount();
+                        int cowsCount = CallculateCowsCount();
+                        if (bullsCount == generatedNumber.Length)
+                        {
+                            ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
+                            FinishGame();
+                            playerHelper = new PlayerHelper();
+                            this.isGameFinished = true;
+                            this.cheats = 0;
+                            this.attempts = 0;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}",
+                                bullsCount, cowsCount);
+                        }
+                    }
+                    else 
+                    {
+                        ConsolePrinter.PrintWrongCommandMessage();
+                    }
+                    break;
+                default:
+                    {
+                        throw new InvalidOperationException("Invalid Input Command!");
+                    }
+            }
+        }
+        
+        private int CallculateBullsCount()
         {
             StringBuilder playerNumber = new StringBuilder(playerInput);
             StringBuilder number = new StringBuilder(generatedNumber);
@@ -102,10 +124,10 @@ namespace BullsAndCowsGame
             return cowsCount;
         }
 
-        private int CallculateCowsCount(string playerInput, string generatedNumber)
+        private int CallculateCowsCount()
         {
             int bullsCount = 0;
-           
+
             StringBuilder playerNumber = new StringBuilder(playerInput);
             StringBuilder number = new StringBuilder(generatedNumber);
             for (int i = 0; i < playerNumber.Length; i++)
@@ -122,7 +144,7 @@ namespace BullsAndCowsGame
             return bullsCount;
         }
 
-        private bool IsValidInput(string playerInput)
+        private bool IsValidInput()
         {
             if (playerInput == String.Empty || playerInput.Length != generatedNumber.Length)
             {
@@ -139,7 +161,7 @@ namespace BullsAndCowsGame
             return true;
         }
 
-        private void FinishGame(int attempts, int cheats)
+        private void FinishGame()
         {
             if (cheats == 0)
             {
