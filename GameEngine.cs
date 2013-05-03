@@ -20,9 +20,7 @@ namespace BullsAndCowsGame
             this.playerHelper = new PlayerHelper();
             this.generatedNumber = numberGenerator.GenerateNumber();
         }
-
         
-
         public void Start()
         {
             PlayerCommand enteredCommand;
@@ -55,13 +53,15 @@ namespace BullsAndCowsGame
             {
                 case PlayerCommand.Top:
                     {
-                        ScoreBoard.Print();
+                        ScoreBoard.Instance.Print();
                         break;
                     }
                    
                 case PlayerCommand.Restart:
                     {
-                        playerHelper = new PlayerHelper();
+                        this.playerHelper = new PlayerHelper();
+                        this.cheats = 0;
+                        this.attempts = 0;
                         Console.WriteLine();
                         break;
                     }
@@ -75,28 +75,12 @@ namespace BullsAndCowsGame
                         break;
                     }
                 case PlayerCommand.Other:
-                    
+
                     if (IsValidInput())
                     {
-                        this.attempts++;
-                        int bullsCount = CallculateBullsCount();
-                        int cowsCount = CallculateCowsCount();
-                        if (bullsCount == generatedNumber.Length)
-                        {
-                            ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
-                            FinishGame();
-                            playerHelper = new PlayerHelper();
-                            this.isGameFinished = true;
-                            this.cheats = 0;
-                            this.attempts = 0;
-                        }
-                        else
-                        {
-                            Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}",
-                                bullsCount, cowsCount);
-                        }
+                        ProcessGame();
                     }
-                    else 
+                    else
                     {
                         ConsolePrinter.PrintWrongCommandMessage();
                     }
@@ -105,6 +89,27 @@ namespace BullsAndCowsGame
                     {
                         throw new InvalidOperationException("Invalid Input Command!");
                     }
+            }
+        }
+
+        private void ProcessGame()
+        {
+            this.attempts++;
+            int bullsCount = CallculateBullsCount();
+            int cowsCount = CallculateCowsCount();
+            if (bullsCount == generatedNumber.Length)
+            {
+                ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
+                FinishGame();
+                playerHelper = new PlayerHelper();
+                this.isGameFinished = true;
+                this.cheats = 0;
+                this.attempts = 0;
+            }
+            else
+            {
+                Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}",
+                    bullsCount, cowsCount);
             }
         }
         

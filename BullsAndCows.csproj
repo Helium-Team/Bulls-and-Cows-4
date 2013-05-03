@@ -47,10 +47,8 @@
     <Compile Include="ConsolePrinter.cs" />
     <Compile Include="GameEngine.cs" />
     <Compile Include="NumberGenerator.cs" />
-    <Compile Include="Player.cs" />
     <Compile Include="PlayerCommand.cs" />
     <Compile Include="PlayerHelper.cs" />
-    <Compile Include="Score.cs" />
     <Compile Include="ScoreBoard.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
