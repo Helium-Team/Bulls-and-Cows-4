@@ -8,7 +8,7 @@ namespace BullsAndCowsGame
     {
         private const int SHOWED_TOP_SCORE = 5;
         private static ScoreBoard instance;
-        private SortedList<string, int> ranking;
+        private List<KeyValuePair<string, int>> ranking;
 
         public static ScoreBoard Instance
         {
@@ -24,13 +24,18 @@ namespace BullsAndCowsGame
         
         private ScoreBoard()
         {
-            this.ranking = new SortedList<string, int>();
+            this.ranking = new List<KeyValuePair<string, int>>();
         }
 
         public void AddPlayer(string playerName, int attempts)
         {
-            Player player = new Player(playerName, attempts);
-            ranking.Add(playerName, attempts);
+            this.ranking.Add(new KeyValuePair<string,int>(playerName, attempts));
+        }
+
+        private List<KeyValuePair<string, int>> Sort()
+        {
+            var sortedRanking = this.ranking.OrderBy(attempts => attempts.Value).ToList();
+            return sortedRanking;
         }
 
         public void Print()
@@ -41,11 +46,19 @@ namespace BullsAndCowsGame
             }
             else
             {
+                var sortedRanking = Sort();
                 Console.WriteLine("Scoreboard:");
                 int i = 1;
-                foreach (var p in ranking)
+                foreach (var p in sortedRanking)
                 {
-                    Console.WriteLine("{0}. {1} --> {2} guess" + ((p.Value == 1) ? "" : "es"), i++, p.Key, p.Value);
+                    if (i <= SHOWED_TOP_SCORE)
+                    {
+                        Console.WriteLine("{0}. {1} --> {2} guess" + ((p.Value == 1) ? "" : "es"), i++, p.Key, p.Value);
+                    }
+                    else
+                    {
+                        break;
+                    }
                 }
             }
         }
