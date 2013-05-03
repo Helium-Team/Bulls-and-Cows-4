@@ -28,9 +28,6 @@ namespace BullsAndCowsGame
                 ConsolePrinter.PrintWelcomeMessage();
                 this.generatedNumber = numberGenerator.GenerateNumber();
                 this.isGameFinished = false;
-                int attempts = 0;
-                int cheats = 0;
-                
                 do
                 {
                     Console.Write("Enter your guess or command: ");
