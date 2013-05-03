@@ -7,11 +7,14 @@ namespace BullsAndCowsGame
     public class GameEngine
     {
         private string generatedNumber;
-        private PlayerHelper playerHelper = new PlayerHelper();
-        private readonly NumberGenerator numberGenerator = new NumberGenerator();
+        private PlayerHelper playerHelper;
+        private readonly NumberGenerator numberGenerator;
         
         public GameEngine()
         {
+            this.numberGenerator = new NumberGenerator();
+            this.playerHelper = new PlayerHelper();
+            this.generatedNumber = numberGenerator.GenerateNumber();
         }
 
         
@@ -22,7 +25,7 @@ namespace BullsAndCowsGame
             do
             {
                 ConsolePrinter.PrintWelcomeMessage();
-                generatedNumber = numberGenerator.GenerateNumber();
+                //generatedNumber = numberGenerator.GenerateNumber();
                 int attempts = 0;
                 int cheats = 0;
                 
