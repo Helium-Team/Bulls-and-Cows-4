@@ -18,7 +18,6 @@ namespace BullsAndCowsGame
         {
             this.numberGenerator = new NumberGenerator();
             this.playerHelper = new PlayerHelper();
-            this.generatedNumber = numberGenerator.GenerateNumber();
         }
         
         public void Start()
@@ -27,7 +26,7 @@ namespace BullsAndCowsGame
             do
             {
                 ConsolePrinter.PrintWelcomeMessage();
-                //generatedNumber = numberGenerator.GenerateNumber();
+                this.generatedNumber = numberGenerator.GenerateNumber();
                 this.isGameFinished = false;
                 int attempts = 0;
                 int cheats = 0;
