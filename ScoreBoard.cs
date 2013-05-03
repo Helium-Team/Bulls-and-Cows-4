@@ -29,12 +29,12 @@ namespace BullsAndCowsGame
 
         public void AddPlayer(string playerName, int attempts)
         {
-            this.ranking.Add(new KeyValuePair<string,int>(playerName, attempts));
+            this.ranking.Add(new KeyValuePair<string, int>(playerName, attempts));
         }
 
         private List<KeyValuePair<string, int>> Sort()
         {
-            var sortedRanking = this.ranking.OrderBy(attempts => attempts.Value).ToList();
+            var sortedRanking = this.ranking.OrderBy(attempts => attempts.Value).ThenBy(attempts => attempts.Key).ToList();
             return sortedRanking;
         }
 
