@@ -9,7 +9,7 @@ namespace BullsAndCowsGame
         private string generatedNumber;
         private PlayerHelper playerHelper = new PlayerHelper();
         private readonly NumberGenerator numberGenerator = new NumberGenerator();
-
+        
         public GameEngine()
         {
         }
@@ -34,7 +34,7 @@ namespace BullsAndCowsGame
 
                     if (enteredCommand == PlayerCommand.Top)
                     {
-                        ScoreBoard.Print();
+                        ScoreBoard.Instance.Print();
                     }
                     else if (enteredCommand == PlayerCommand.Help)
                     {
@@ -145,8 +145,8 @@ namespace BullsAndCowsGame
             {
                 Console.Write("Please enter your name for the top scoreboard: ");
                 string playerName = Console.ReadLine();
-                ScoreBoard.AddPlayer(playerName, attempts);
-                ScoreBoard.Print();
+                ScoreBoard.Instance.AddPlayer(playerName, attempts);
+                ScoreBoard.Instance.Print();
             }
             else
             {
