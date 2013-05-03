@@ -6,11 +6,13 @@ namespace BullsAndCowsGame
 {
     public class PlayerHelper
     {
-        private string helpPattern = null;
-        private StringBuilder helpNumber = new StringBuilder("XXXX");
+        private string helpPattern;
+        private StringBuilder helpNumber;
 
         public PlayerHelper()
         {
+            this.helpPattern = null;
+            this.helpNumber = new StringBuilder("XXXX");
         }
 
         public int PrintHelp(int cheats, string generatedNumber)
