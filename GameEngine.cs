@@ -91,8 +91,9 @@ namespace BullsAndCowsGame
         private void ProcessGame()
         {
             this.attempts++;
-            int bullsCount = CallculateBullsCount();
-            int cowsCount = CallculateCowsCount();
+            bool[] isBull = new bool[generatedNumber.Length];
+            int bullsCount = CallculateBullsCount(ref isBull);
+            int cowsCount = CallculateCowsCount(isBull);
             if (bullsCount == generatedNumber.Length)
             {
                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
@@ -104,52 +105,43 @@ namespace BullsAndCowsGame
             }
             else
             {
-                Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}",
-                    bullsCount, cowsCount);
+                Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullsCount, cowsCount);
             }
         }
         
-        private int CallculateBullsCount()
+        private int CallculateBullsCount(ref bool[] isBull)
         {
-            StringBuilder playerNumber = new StringBuilder(playerInput);
-            StringBuilder number = new StringBuilder(generatedNumber);
-            int cowsCount = 0;
-            for (int i = 0; i < playerNumber.Length; i++)
+            int bullsCount = 0;
+            for (int i = 0; i < this.playerInput.Length; i++)
             {
-                for (int j = 0; j < number.Length; j++)
+                if (this.playerInput[i] == this.generatedNumber[i])
                 {
-                    if (playerNumber[i] == number[j])
+                    bullsCount++;
+                    isBull[i] = true;
+                }
+            }
+            return bullsCount;
+        }
+
+        private int CallculateCowsCount(bool[] isBull)
+        {
+            const int MAX_COW_VARIATIONS = 10;
+            int cowsCount = 0;
+            bool[] isNumberACow = new bool[MAX_COW_VARIATIONS];
+            
+            for (int i = 0; i < this.playerInput.Length; i++)
+            {
+                for (int j = 0; j < this.generatedNumber.Length; j++)
+                {
+                    int checkedDigit = int.Parse(this.generatedNumber[i].ToString());
+                    if ((this.playerInput[i] == this.generatedNumber[j])&&(!isBull[i])&&(!isNumberACow[checkedDigit]))
                     {
                         cowsCount++;
-                        playerNumber.Remove(i, 1);
-                        number.Remove(j, 1);
-                        j--;
-                        i--;
-                        break;
+                        isNumberACow[checkedDigit] = true;
                     }
                 }
             }
             return cowsCount;
-        }
-
-        private int CallculateCowsCount()
-        {
-            int bullsCount = 0;
-
-            StringBuilder playerNumber = new StringBuilder(playerInput);
-            StringBuilder number = new StringBuilder(generatedNumber);
-            for (int i = 0; i < playerNumber.Length; i++)
-            {
-                if (playerNumber[i] == number[i])
-                {
-                    bullsCount++;
-                    playerNumber.Remove(i, 1);
-                    number.Remove(i, 1);
-                    i--;
-                }
-            }
-
-            return bullsCount;
         }
 
         private bool IsValidInput()
