@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
 
 namespace BullsAndCowsGame
 {
     public class GameEngine
     {
+        const int MAX_COW_VARIATIONS = 10;
         private PlayerHelper playerHelper;
         private readonly NumberGenerator numberGenerator;
         private string playerInput = null;
@@ -90,10 +90,11 @@ namespace BullsAndCowsGame
 
         private void ProcessGame()
         {
-            this.attempts++;
             bool[] isBull = new bool[generatedNumber.Length];
-            int bullsCount = CallculateBullsCount(ref isBull);
+            CheckPlayerInputForBull(isBull);
+            int bullsCount = CallculateBullsCount(isBull);
             int cowsCount = CallculateCowsCount(isBull);
+            this.attempts++;
             if (bullsCount == generatedNumber.Length)
             {
                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
@@ -108,16 +109,26 @@ namespace BullsAndCowsGame
                 Console.WriteLine("Wrong number! Bulls: {0}, Cows: {1}", bullsCount, cowsCount);
             }
         }
-        
-        private int CallculateBullsCount(ref bool[] isBull)
+
+        private void CheckPlayerInputForBull(bool[] isBull)
         {
-            int bullsCount = 0;
             for (int i = 0; i < this.playerInput.Length; i++)
             {
                 if (this.playerInput[i] == this.generatedNumber[i])
                 {
-                    bullsCount++;
                     isBull[i] = true;
+                }
+            }
+        }
+        
+        private int CallculateBullsCount(bool[] isBull)
+        {
+            int bullsCount = 0;
+            for (int i = 0; i < isBull.Length; i++)
+            {
+                if (isBull[i] == true)
+                {
+                    bullsCount++;
                 }
             }
             return bullsCount;
@@ -125,7 +136,6 @@ namespace BullsAndCowsGame
 
         private int CallculateCowsCount(bool[] isBull)
         {
-            const int MAX_COW_VARIATIONS = 10;
             int cowsCount = 0;
             bool[] isNumberACow = new bool[MAX_COW_VARIATIONS];
             
@@ -134,7 +144,7 @@ namespace BullsAndCowsGame
                 for (int j = 0; j < this.generatedNumber.Length; j++)
                 {
                     int checkedDigit = int.Parse(this.generatedNumber[i].ToString());
-                    if ((this.playerInput[i] == this.generatedNumber[j])&&(!isBull[i])&&(!isNumberACow[checkedDigit]))
+                    if ((this.playerInput[i] == this.generatedNumber[j]) && (!isBull[i]) && (!isNumberACow[checkedDigit]))
                     {
                         cowsCount++;
                         isNumberACow[checkedDigit] = true;
