@@ -48,5 +48,10 @@ namespace BullsAndCowsGame
             int randomPaternNumber = randomNumberGenerator.Next(helpPaterns.Length - 1);
             helpPattern = helpPaterns[randomPaternNumber];
         }
+
+        public static void ClearHelp()
+        {
+            helpNumber = new StringBuilder("XXXX");
+        }
     }
 }

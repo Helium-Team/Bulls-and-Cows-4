@@ -6,16 +6,15 @@ namespace BullsAndCowsGame
     public class GameEngine
     {
         const int MAX_COW_VARIATIONS = 10;
-        private PlayerHelper playerHelper;
         private string playerInput = null;
-        private string generatedNumber;
+        private string generatedNumber; // It's not initialized
         private bool isGameFinished = false;
         private int attempts = 0;
         private int cheats = 0;
         
         public GameEngine()
         {
-            this.playerHelper = new PlayerHelper();
+            
         }
         
         public void Start()
@@ -53,7 +52,7 @@ namespace BullsAndCowsGame
                    
                 case PlayerCommand.Restart:
                     {
-                        this.playerHelper = new PlayerHelper();
+                        PlayerHelper.ClearHelp();
                         this.cheats = 0;
                         this.attempts = 0;
                         Console.WriteLine();
@@ -61,7 +60,7 @@ namespace BullsAndCowsGame
                     }
                 case PlayerCommand.Help:
                     {
-                        this.cheats = playerHelper.PrintHelp(cheats, generatedNumber);
+                        this.cheats = PlayerHelper.PrintHelp(cheats, generatedNumber);
                         break;
                     }
                 case PlayerCommand.Exit:
@@ -97,7 +96,7 @@ namespace BullsAndCowsGame
             {
                 ConsolePrinter.PrintCongratulateMessage(attempts, cheats);
                 FinishGame();
-                playerHelper = new PlayerHelper();
+                PlayerHelper.ClearHelp();
                 this.isGameFinished = true;
                 this.cheats = 0;
                 this.attempts = 0;
