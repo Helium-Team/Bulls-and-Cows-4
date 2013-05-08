@@ -4,24 +4,18 @@ using System.Text;
 
 namespace BullsAndCowsGame
 {
-    public class PlayerHelper
+    public static class PlayerHelper
     {
-        private string helpPattern;
-        private StringBuilder helpNumber;
+        private static string helpPattern = null;
+        private static StringBuilder helpNumber = new StringBuilder("XXXX");
 
-        public PlayerHelper()
-        {
-            this.helpPattern = null;
-            this.helpNumber = new StringBuilder("XXXX");
-        }
-
-        public int PrintHelp(int cheats, string generatedNumber)
+        public static int PrintHelp(int cheats, string generatedNumber)
         {
             if (cheats < 4)
             {
                 RevealDigit(cheats, generatedNumber);
                 cheats++;
-                Console.WriteLine("The number looks like {0}.", this.helpNumber);
+                Console.WriteLine("The number looks like {0}.", helpNumber);
             }
             else
             {
@@ -30,9 +24,9 @@ namespace BullsAndCowsGame
             return cheats;
         }
 
-        private void RevealDigit(int cheats, string generatedNumber)
+        private static void RevealDigit(int cheats, string generatedNumber)
         {
-            if (this.helpPattern == null)
+            if (helpPattern == null)
             {
                 GenerateHelpPattern();
             }
@@ -40,7 +34,7 @@ namespace BullsAndCowsGame
             helpNumber[digitToReveal - 1] = generatedNumber[digitToReveal - 1];
         }
 
-        private void GenerateHelpPattern()
+        private static void GenerateHelpPattern()
         {
             string[] helpPaterns =
             {
@@ -52,7 +46,7 @@ namespace BullsAndCowsGame
 
             Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
             int randomPaternNumber = randomNumberGenerator.Next(helpPaterns.Length - 1);
-            this.helpPattern = helpPaterns[randomPaternNumber];
+            helpPattern = helpPaterns[randomPaternNumber];
         }
     }
 }
