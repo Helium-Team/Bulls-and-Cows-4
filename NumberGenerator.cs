@@ -4,11 +4,11 @@ using System.Text;
 
 namespace BullsAndCowsGame
 {
-    public class NumberGenerator
+    public static class NumberGenerator
     {
         private const int NUMBER_LENGHT = 4;
 
-        public string GenerateNumber()
+        public static string GenerateNumber()
         {
             StringBuilder num = new StringBuilder(4);
             Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);

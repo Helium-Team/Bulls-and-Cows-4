@@ -7,7 +7,6 @@ namespace BullsAndCowsGame
     {
         const int MAX_COW_VARIATIONS = 10;
         private PlayerHelper playerHelper;
-        private readonly NumberGenerator numberGenerator;
         private string playerInput = null;
         private string generatedNumber;
         private bool isGameFinished = false;
@@ -16,7 +15,6 @@ namespace BullsAndCowsGame
         
         public GameEngine()
         {
-            this.numberGenerator = new NumberGenerator();
             this.playerHelper = new PlayerHelper();
         }
         
@@ -26,7 +24,7 @@ namespace BullsAndCowsGame
             do
             {
                 ConsolePrinter.PrintWelcomeMessage();
-                this.generatedNumber = numberGenerator.GenerateNumber();
+                this.generatedNumber = NumberGenerator.GenerateNumber();
                 this.isGameFinished = false;
                 do
                 {
