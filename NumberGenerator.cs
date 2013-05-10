@@ -11,6 +11,7 @@ namespace BullsAndCowsGame
 
         public static string GenerateNumber()
         {
+            
             StringBuilder num = new StringBuilder(4);
             Random randomNumberGenerator = new Random(DateTime.Now.Millisecond);
             List<int> usedDigits = new List<int>();
