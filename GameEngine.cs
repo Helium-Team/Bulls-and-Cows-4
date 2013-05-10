@@ -173,6 +173,11 @@ namespace BullsAndCowsGame
             {
                 Console.Write("Please enter your name for the top scoreboard: ");
                 string playerName = Console.ReadLine();
+                while (playerName == null || string.IsNullOrWhiteSpace(playerName))
+                {
+                    Console.WriteLine("Invalid name!\nEnter valid name");
+                    playerName = Console.ReadLine();
+                }
                 ScoreBoard.Instance.AddPlayer(playerName, attempts);
                 ScoreBoard.Instance.Print();
             }
