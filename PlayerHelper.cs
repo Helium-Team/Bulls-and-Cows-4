@@ -4,14 +4,25 @@ using System.Text;
 
 namespace BullsAndCowsGame
 {
+    /// <summary>
+    /// Contains methods that generate, print and clear one digit 
+    /// from the generated number when command "Help" is executed.
+    /// </summary>
     public static class PlayerHelper
     {
         private static string helpPattern = null;
         private static StringBuilder helpNumber = new StringBuilder("XXXX");
-
+        
+        /// <summary>
+        /// Print help number if there are not revealed digit in the generated number.
+        /// </summary>
+        /// <param name="cheats">Represent number of revealed digit</param>
+        /// <param name="generatedNumber">Represent generated number which have to be guessed in string format</param>
+        /// <returns>Integer number that reperesent number of revealed digit from the generated number</returns>
         public static int PrintHelp(int cheats, string generatedNumber)
         {
-            if (cheats < 4)
+            int maxCheats = generatedNumber.Length;
+            if (cheats < maxCheats)
             {
                 RevealDigit(cheats, generatedNumber);
                 cheats++;
@@ -24,6 +35,11 @@ namespace BullsAndCowsGame
             return cheats;
         }
 
+        /// <summary>
+        /// Generate number with new digit to be revealed.
+        /// </summary>
+        /// <param name="cheats">Represent number of revealed digit</param>
+        /// <param name="generatedNumber">Represent generated number which have to be guessed in string format</param>
         private static void RevealDigit(int cheats, string generatedNumber)
         {
             if (helpPattern == null)
@@ -34,6 +50,9 @@ namespace BullsAndCowsGame
             helpNumber[digitToReveal - 1] = generatedNumber[digitToReveal - 1];
         }
 
+        /// <summary>
+        /// Generate help pattern.
+        /// </summary>
         private static void GenerateHelpPattern()
         {
             string[] helpPaterns =
@@ -49,6 +68,9 @@ namespace BullsAndCowsGame
             helpPattern = helpPaterns[randomPaternNumber];
         }
 
+        /// <summary>
+        /// Clear previously generated help number. 
+        /// </summary>
         public static void ClearHelp()
         {
             helpNumber = new StringBuilder("XXXX");
