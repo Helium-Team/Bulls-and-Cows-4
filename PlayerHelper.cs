@@ -21,6 +21,14 @@ namespace BullsAndCowsGame
         /// <returns>Integer number that reperesent number of revealed digit from the generated number</returns>
         public static int PrintHelp(int cheats, string generatedNumber)
         {
+            if (generatedNumber == null || string.IsNullOrWhiteSpace(generatedNumber))
+            {
+                throw new ArgumentException("Generated number can't be null or empty");
+            }
+            if (cheats < 0)
+            {
+                throw new ArgumentException("Cheats can't be less than zero");
+            }
             int maxCheats = generatedNumber.Length;
             if (cheats < maxCheats)
             {
@@ -74,6 +82,7 @@ namespace BullsAndCowsGame
         public static void ClearHelp()
         {
             helpNumber = new StringBuilder("XXXX");
+            
         }
     }
 }

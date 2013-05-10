@@ -29,6 +29,14 @@ namespace BullsAndCowsGame
 
         public void AddPlayer(string playerName, int attempts)
         {
+            if (playerName == null || string.IsNullOrWhiteSpace(playerName)) 
+            {
+                throw new ArgumentException("Invalid Player Name");
+            }
+            if (attempts < 0)
+            {
+                throw new ArgumentException("Attemps can't be less than null");
+            }
             this.ranking.Add(new KeyValuePair<string, int>(playerName, attempts));
         }
 
