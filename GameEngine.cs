@@ -7,14 +7,13 @@ namespace BullsAndCowsGame
     {
         const int MAX_COW_VARIATIONS = 10;
         private string playerInput = null;
-        private string generatedNumber; // It's not initialized
+        private string generatedNumber = null;
         private bool isGameFinished = false;
         private int attempts = 0;
         private int cheats = 0;
         
         public GameEngine()
         {
-            
         }
         
         public void Start()
