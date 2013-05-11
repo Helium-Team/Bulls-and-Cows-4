@@ -16,8 +16,13 @@ namespace BullsAndCowsGame
             {
                 if (instance == null)
                 {
-                    instance = new ScoreBoard();
+                    lock (instance)
+                    {
+                        if (instance == null)
+                            instance = new ScoreBoard();
+                    }
                 }
+                
                 return instance;
             }
         }
