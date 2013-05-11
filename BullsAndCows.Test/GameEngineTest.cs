@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using BullsAndCowsGame;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
 namespace BullsAndCows.Test
@@ -10,14 +11,10 @@ namespace BullsAndCows.Test
         [TestMethod()]
         public void GameEngineConstructorTest()
         {
-            //GameEngine target = new GameEngine();
+            GameEngine target = new GameEngine();
+            Assert.IsNotNull(target);
         }
 
-        [TestMethod()]
-        public void StartTest()
-        {
-            //GameEngine target = new GameEngine(); // TODO: Initialize to an appropriate value
-            //target.Start();
-        }
+       
     }
 }

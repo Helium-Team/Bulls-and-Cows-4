@@ -9,20 +9,20 @@ namespace BullsAndCowsGame
         private const int SHOWED_TOP_SCORE = 5;
         private static ScoreBoard instance;
         private List<KeyValuePair<string, int>> ranking;
-
+        private static object syncRoot = new Object();
         public static ScoreBoard Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    lock (instance)
+                    lock (syncRoot)
                     {
                         if (instance == null)
                             instance = new ScoreBoard();
                     }
                 }
-                
+
                 return instance;
             }
         }
