@@ -5,6 +5,7 @@ using System.Text;
 
 namespace BullsAndCowsGame
 {
+
     public static class NumberGenerator
     {
         private const int NUMBER_LENGHT = 4;
